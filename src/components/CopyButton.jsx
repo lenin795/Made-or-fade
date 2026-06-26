@@ -1,0 +1,32 @@
+import React, { useState } from 'react';
+import '../styles/CopyButton.css';
+
+const CopyButton = ({ text, label = 'Copy' }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback for browsers without clipboard API support
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <button type="button" className={`copy-btn ${copied ? 'copy-btn-copied' : ''}`} onClick={handleCopy}>
+      {copied ? '✓ Copied!' : label}
+    </button>
+  );
+};
+
+export default CopyButton;

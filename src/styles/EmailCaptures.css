@@ -1,0 +1,6 @@
+/* EmailCaptures reuses .polls-table-wrap / .polls-table from ManagePolls.css.
+   Any page-specific tweaks can go here. */
+
+.polls-table td {
+  word-break: break-word;
+}
